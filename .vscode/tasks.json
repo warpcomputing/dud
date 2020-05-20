@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            "PATH": "/usr/local/pgsql/bin:${env:PATH}"
+        }
+    },
+    "type": "shell",
+    "presentation": {
+        "reveal": "always"
+    },
+    "problemMatcher": "$tsc",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "make; sudo rm /usr/local/pgsql; sudo make install",
+            "dependsOn": ["stop"],
+            "group": "build",
+            "detail": "Build Postgres server"
+        },
+        {
+            "label": "delete database",
+            "command": "sudo rm -r -f ${env:PGDATA}",
+            "detail": "Delete database"
+        },
+        {
+            "label": "initdb",
+            "command": "sudo mkdir ${env:PGDATA}; sudo chown vscode -R ${env:PGDATA}; initdb",
+            "dependsOn": ["stop", "delete database"],
+            "dependsOrder": "sequence",
+            "detail": "Initialize simulation database."
+        },
+        {
+            "label": "initdb and start",
+            "command": "pg_ctl status",
+            "dependsOn": ["initdb", "start"],
+            "dependsOrder": "sequence",
+            "detail": "Initialize database then start Postgres server"
+        },
+        {
+            "label": "build and start",
+            "command": "pg_ctl status",
+            "dependsOn": ["build", "start"],
+            "dependsOrder": "sequence",
+            "detail": "Build and start Postgres server"
+        },
+        {
+            "label": "build, initdb and start",
+            "command": "pg_ctl status",
+            "dependsOn": ["build", "initdb", "start"],
+            "dependsOrder": "sequence",
+            "detail": "Build and start Postgres server"
+        },
+        {
+            "label": "start",
+            "command": "pg_ctl start; pg_ctl status",
+            "dependsOn": ["stop"],
+            "detail": "Start Postgres server",
+        },
+        {
+            "label": "stop",
+            "command": "if [ -e ${env:PGDATA}/postmaster.pid ]; then pg_ctl stop; fi",
+            "detail": "Stop Postgres server"
+        },
+    ]
+}

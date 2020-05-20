@@ -19,10 +19,10 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "./configure; make; sudo make install",
+	"postCreateCommand": "sudo chown vscode -R $(pwd); ./configure; make; sudo make install",
 
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode"
+	"remoteUser": "vscode",
 
 	"containerEnv": {
 		"PGDATA": "/workspaces/data"

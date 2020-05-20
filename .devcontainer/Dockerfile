@@ -31,6 +31,10 @@ RUN apt-get update \
         && chown -R $USER_UID:$USER_GID /home/$USERNAME; \
     fi \
     #
+    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    #
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \

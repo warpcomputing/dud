@@ -22,7 +22,7 @@ RUN apt-get update \
     # Install C++ tools
     && apt-get -y install build-essential cmake cppcheck valgrind \
     # Postgres specific packages
-    bison libreadline7 libreadline-dev zlib1g-dev \
+    bison flex libreadline7 libreadline-dev zlib1g-dev \
     #
     # [Optional] Update UID/GID if needed
     && if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then \

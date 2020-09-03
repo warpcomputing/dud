@@ -10,21 +10,9 @@
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"ms-vscode.cpptools"
-	],
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
 
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
-
-	"containerEnv": {
-		"PGDATA": "/workspaces/data"
-	}
 }
